@@ -1,33 +1,37 @@
 import React, { useState, useEffect } from "react";
 
+import useInput from "../hooks/use-input";
 import CardContainer from "../UI/CardContainer";
-
-import classes from "./ProfileCard.module.css";
 
 import Avatar from "../UI/Avatar";
 import koala from "../assets/koala.png";
 import { GoLocation } from "react-icons/go";
 import { FaRegEdit } from "react-icons/fa";
 
+import classes from "./ProfileCard.module.css";
+
 const ProfileCard = () => {
   const [isEdit, setIsEdit] = useState(false);
+  const {
+    value: enteredName,
+    setEnteredValue: setEnteredName,
+    enteredValueOnChange: enteredFirstNameOnChange,
+  } = useInput("First Name");
 
-  const [firstName, setFirstName] = useState("First Name");
-  const [lastName, setLastName] = useState("Last Name");
-  const [officeLocation, setOfficeLocation] = useState("Office location");
+  const {
+    value: enteredLastName,
+    setEnteredValue: setEnteredLastName,
+    enteredValueOnChange: enteredLastNameOnChange,
+  } = useInput("Last Name");
+
+  const {
+    value: enteredOffice,
+    setEnteredValue: setEnteredOffice,
+    enteredValueOnChange: enteredOfficeOnChange,
+  } = useInput("Office location");
 
   const editHandlcer = () => {
     setIsEdit((prevState) => !prevState);
-  };
-
-  const firstNameOnChangeHandler = (e) => {
-    setFirstName(e.target.value);
-  };
-  const lastNameOnChangeHandler = (e) => {
-    setLastName(e.target.value);
-  };
-  const officeLocationOnChangeHandler = (e) => {
-    setOfficeLocation(e.target.value);
   };
 
   useEffect(() => {
@@ -36,13 +40,13 @@ const ProfileCard = () => {
     const storedOfficeLocation = localStorage.getItem("officeLocation");
 
     if (storedName) {
-      setFirstName(storedName);
+      setEnteredName(storedName);
     }
     if (storedLastName) {
-      setLastName(storedLastName);
+      setEnteredLastName(storedLastName);
     }
     if (storedOfficeLocation) {
-      setOfficeLocation(storedOfficeLocation);
+      setEnteredOffice(storedOfficeLocation);
     }
   }, []);
 
@@ -52,9 +56,9 @@ const ProfileCard = () => {
 
   const saveEditedHandler = () => {
     setIsEdit(false);
-    localStorage.setItem("firstName", firstName);
-    localStorage.setItem("lastName", lastName);
-    localStorage.setItem("officeLocation", officeLocation);
+    localStorage.setItem("firstName", enteredName);
+    localStorage.setItem("lastName", enteredLastName);
+    localStorage.setItem("officeLocation", enteredOffice);
   };
 
   return (
@@ -73,24 +77,24 @@ const ProfileCard = () => {
           <div>
             <div className={classes["input-container"]}>
               <input
-                value={firstName}
-                onChange={firstNameOnChangeHandler}
+                value={enteredName}
+                onChange={enteredFirstNameOnChange}
                 type="text"
                 placeholder="Enter your first name"
               />
             </div>
             <div className={classes["input-container"]}>
               <input
-                value={lastName}
-                onChange={lastNameOnChangeHandler}
+                value={enteredLastName}
+                onChange={enteredLastNameOnChange}
                 type="text"
                 placeholder="Enter your last name"
               />
             </div>
             <div className={classes["input-container"]}>
               <input
-                value={officeLocation}
-                onChange={officeLocationOnChangeHandler}
+                value={enteredOffice}
+                onChange={enteredOfficeOnChange}
                 type="text"
                 placeholder="Enter your office location"
               />
@@ -102,13 +106,13 @@ const ProfileCard = () => {
           </div>
         ) : (
           <div className={classes["profile-info"]}>
-            <div className={classes["first-name"]}>{firstName}</div>
-            <div className={classes["last-name"]}>{lastName}</div>
+            <div className={classes["first-name"]}>{enteredName}</div>
+            <div className={classes["last-name"]}>{enteredLastName}</div>
             <div className={classes.office}>
               <span>
                 <GoLocation size="14px" />
               </span>
-              {officeLocation}
+              {enteredOffice}
             </div>
           </div>
         )}
