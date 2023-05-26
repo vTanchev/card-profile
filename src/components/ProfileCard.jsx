@@ -4,14 +4,15 @@ import useInput from "../hooks/use-input";
 import CardContainer from "../UI/CardContainer";
 
 import Avatar from "../UI/Avatar";
-import koala from "../assets/koala.png";
+import koala from "../assets/koala1.png";
 import { GoLocation } from "react-icons/go";
-import { FaRegEdit } from "react-icons/fa";
+import { FaRegEdit, FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
 
 import classes from "./ProfileCard.module.css";
 
 const ProfileCard = () => {
   const [isEdit, setIsEdit] = useState(false);
+
   const {
     value: enteredName,
     setEnteredValue: setEnteredName,
@@ -63,18 +64,16 @@ const ProfileCard = () => {
 
   return (
     <CardContainer>
-      <div className={classes.icon}>
-        <FaRegEdit size={24} onClick={editHandlcer} />
-      </div>
-      <>
-        <div className={classes["icon-container"]}></div>
-      </>
-      <div className={classes.avatar}>
-        <Avatar src={koala} />
-      </div>
+      <FaRegEdit
+        onClick={editHandlcer}
+        size={30}
+        className={classes["edit-icon"]}
+      />
+      <Avatar src={koala} />
+
       <div className={classes["profile-info"]}>
         {isEdit ? (
-          <div>
+          <>
             <div className={classes["input-container"]}>
               <input
                 value={enteredName}
@@ -103,16 +102,22 @@ const ProfileCard = () => {
               <button onClick={cancelEditedHandler}>Cancel</button>
               <button onClick={saveEditedHandler}>Save</button>
             </div>
-          </div>
+          </>
         ) : (
-          <div className={classes["profile-info"]}>
-            <div className={classes["first-name"]}>{enteredName}</div>
-            <div className={classes["last-name"]}>{enteredLastName}</div>
-            <div className={classes.office}>
+          <div className={classes.front}>
+            <h3>
+              {enteredName} {enteredLastName}
+            </h3>
+            <p>
               <span>
                 <GoLocation size="14px" />
               </span>
               {enteredOffice}
+            </p>
+            <div className={classes["social-media"]}>
+              <FaLinkedin size={30} style={{ paddingRight: "10px" }} />
+              <FaGithub size={30} style={{ paddingRight: "10px" }} />
+              <FaTwitter size={30} style={{ paddingRight: "10px" }} />
             </div>
           </div>
         )}

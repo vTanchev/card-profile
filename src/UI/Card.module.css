@@ -1,8 +1,13 @@
 .card {
-  width: 100%;
-  max-width: 300px;
-  margin: 80px auto;
-  background: #fff;
-  border: none;
-  border-radius: 12px;
+  background: rgba(15, 82, 44, 0.45);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  border-radius: 10px;
+  text-align: center;
+  padding: 40px;
+  color: #fff;
+  position: relative;
+  width: 400px;
+  border-radius: 20px;
 }
